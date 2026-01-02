@@ -14,11 +14,18 @@ export default {
   useTabs: false,
   overrides: [
     {
-      files: "*.json",
-        options: {
+      files: '*rc.js',
+      options: {
+        tabWidth: 2,
+        trailingComma: 'all',
+      },
+    },
+    {
+      files: '*.json',
+      options: {
         tabWidth: 4,
-        trailingComma: "none",
-      }
-    }
-  ]
+        trailingComma: 'none',
+      },
+    },
+  ],
 };
