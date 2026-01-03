@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
-import { add } from 'three/tsl';
 
 export function useCubeScenegraph(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,

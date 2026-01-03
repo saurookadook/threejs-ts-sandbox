@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 
+import { BaseCanvas } from '@src/components';
 import { useCubeScenegraph } from './useCubeScenegraph';
 import './styles.css';
 
@@ -13,5 +14,5 @@ export const Cube = ({
 
   useCubeScenegraph(canvasRef, cubeSize);
 
-  return <canvas ref={canvasRef} id="cube" {...props} />;
+  return <BaseCanvas ref={canvasRef} id="cube" {...props} />;
 };
