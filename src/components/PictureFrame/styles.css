@@ -1,0 +1,96 @@
+/*
+ * #FEF9C2
+ * #FFD230
+ * #A65F1B
+ * #432004
+ * #71717B
+ */
+
+:root {
+  --picture-frame-side-size: 3rem;
+}
+
+.picture-frame {
+  background: #71717B;
+  height: calc(300px + var(--picture-frame-side-size));
+  position: relative;
+  width: calc(600px + var(--picture-frame-side-size));
+  z-index: 1;
+}
+
+[class^="picture-frame-side"] {
+  background: #FFD230;
+  display: flex;
+  flex-grow: 1;
+  position: absolute;
+}
+
+.picture-frame-side-top,
+.picture-frame-side-bottom {
+  height: var(--picture-frame-side-size);
+  width: 100%;
+}
+
+.picture-frame-side-right,
+.picture-frame-side-left {
+  height: 100%;
+  width: var(--picture-frame-side-size);
+}
+
+.picture-frame-side-top {
+  /* background: linear-gradient(to top, #FFD230, #FFD230 60%, #A65F1B); */
+  background: linear-gradient(to top, #A65F1B, #A65F1B 60%, #FFD230 90%, #FFD230);
+  clip-path: polygon(
+    0% 0%,
+    var(--picture-frame-side-size) 100%,
+    calc(100% - var(--picture-frame-side-size)) 100%,
+    100% 0%,
+    0% 0%
+  );
+  left: 0;
+  top: 0;
+}
+
+.picture-frame-side-bottom {
+  /* background: linear-gradient(to bottom, #FFD230, #FFD230 60%, #A65F1B); */
+  background: linear-gradient(to bottom, #A65F1B, #A65F1B 60%, #FFD230 90%, #FFD230);
+  bottom: 0;
+  clip-path: polygon(
+    0% 100%,
+    var(--picture-frame-side-size) 0%,
+    calc(100% - var(--picture-frame-side-size)) 0%,
+    100% 100%,
+    0% 100%
+  );
+  left: 0;
+}
+
+.picture-frame-side-right {
+  /* background: linear-gradient(to right, #FFD230, #FFD230 60%, #A65F1B); */
+  background: linear-gradient(to right, #A65F1B, #A65F1B 60%, #FFD230 90%, #FFD230);
+  bottom: 0;
+  clip-path: polygon(
+    100% 0%,
+    0% var(--picture-frame-side-size),
+    0% calc(100% - var(--picture-frame-side-size)),
+    100% 100%,
+    100% 0%
+  );
+  right: 0;
+  top: 0;
+}
+
+.picture-frame-side-left {
+  /* background: linear-gradient(to left, #FFD230, #FFD230 60%, #A65F1B); */
+  background: linear-gradient(to left, #A65F1B, #A65F1B 60%, #FFD230 90%, #FFD230);
+  bottom: 0;
+  clip-path: polygon(
+    0% 0%,
+    100% var(--picture-frame-side-size),
+    100% calc(100% - var(--picture-frame-side-size)),
+    0% 100%,
+    0% 0%
+  );
+  left: 0;
+  top: 0;
+}
