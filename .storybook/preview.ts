@@ -1,5 +1,8 @@
 import type { Preview } from '@storybook/react-vite';
 
+// @ts-expect-error: TODO: fix this later :]
+import '../src/styles/storybook-preview.css';
+
 const preview: Preview = {
   parameters: {
     controls: {

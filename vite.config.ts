@@ -7,6 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
+
 const dirname =
   typeof __dirname !== 'undefined'
     ? __dirname
@@ -15,6 +16,11 @@ const dirname =
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@src': path.resolve(dirname, './src/'),
+    },
+  },
   test: {
     projects: [
       {

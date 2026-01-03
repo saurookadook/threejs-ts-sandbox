@@ -20,6 +20,23 @@
         "moduleDetection": "force",
         "noEmit": true,
         "jsx": "react-jsx",
+        "paths": {
+            "@src/*": [
+                "./src/*"
+            ],
+            "@assets/*": [
+                "./src/assets/*"
+            ],
+            "@components/*": [
+                "./src/components/*"
+            ],
+            "@styles/*": [
+                "./src/styles/*"
+            ],
+            "@worlds/*": [
+                "./src/worlds/*"
+            ],
+        },
         /* Linting */
         "strict": true,
         "noUnusedLocals": true,
