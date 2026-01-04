@@ -35,9 +35,15 @@ export function useCubeScenegraph(
 
       if (needsResize(renderer)) {
         const canvas = renderer.domElement;
+        // One of the suggested ways to handle HD-DPI (high-density dot per inch) displays
+        // -- see https://threejs.org/manual/#en/responsive#handling-hd-dpi-displays
+        // for limiting max. drawing buffer size:
+        // -- see https://threejs.org/manual/#en/responsive#hd-dpi-limiting-maximum-drawing-buffer-size
+        const pixelRatio = window.devicePixelRatio;
+        const width = Math.floor(canvas.clientWidth * pixelRatio);
+        const height = Math.floor(canvas.clientHeight * pixelRatio);
         // canvas's internal size (its resolution) is often called its 'drawingbuffer' size
-        // renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-        renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+        renderer.setSize(width, height, false);
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
         camera.updateProjectionMatrix();
       }
