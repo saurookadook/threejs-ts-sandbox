@@ -18,7 +18,10 @@ export const PictureFrame = forwardRef<HTMLDivElement, ReactDivProps>(
         className={classNames('picture-frame', className)}
         {...restProps}
       >
-        {children}
+        {/* prettier-ignore */}
+        <div className="picture-frame-content">
+          {children}
+        </div>
 
         <div className="picture-frame-side-top"></div>
         <div className="picture-frame-side-right"></div>

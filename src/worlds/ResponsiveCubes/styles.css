@@ -1,0 +1,12 @@
+#responsive-cubes-frame {
+  max-width: 95vw;
+}
+
+#responsive-cube {
+  align-self: stretch;
+  height: auto;
+  max-width: 100%;
+  position: relative;
+  /* width: 100%; */
+  z-index: 1;
+}
