@@ -33,7 +33,12 @@ export function useCubeScenegraph(
     function renderWithAnimation(time: number) {
       time *= 0.001; // convert time to seconds
 
-      if (needsResize(renderer)) {
+      const canvas = renderer.domElement;
+      const pixelRatio = window.devicePixelRatio;
+      const width = Math.floor(canvas.clientWidth * pixelRatio);
+      const height = Math.floor(canvas.clientHeight * pixelRatio);
+
+      if (needsResize(canvas, width, height)) {
         const canvas = renderer.domElement;
         // One of the suggested ways to handle HD-DPI (high-density dot per inch) displays
         // -- see https://threejs.org/manual/#en/responsive#handling-hd-dpi-displays
@@ -126,9 +131,6 @@ function createCubeGeometry(cubeSize: number) {
   return new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 }
 
-function needsResize(renderer: THREE.WebGLRenderer) {
-  const canvas = renderer.domElement;
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
+function needsResize(canvas: HTMLCanvasElement, width: number, height: number) {
   return canvas.width !== width || canvas.height !== height;
 }
