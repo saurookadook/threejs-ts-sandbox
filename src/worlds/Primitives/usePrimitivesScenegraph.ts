@@ -4,7 +4,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { ParametricGeometry } from 'three/addons/geometries/ParametricGeometry.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
-const SPREAD = 15;
+import { createObjectAndAddToScene, needsResize } from '@src/utils';
 
 export function usePrimitivesScenegraph(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
@@ -487,7 +487,16 @@ function createFifthRowOfPrimitives(
       widthSegments,
       heightSegments,
     );
-    const material = new THREE.PointsMaterial({ color: 0xff0000, size: 0.2 });
+    const material = new THREE.PointsMaterial({
+      color: 0xff0000,
+      size: 0.2, // in world units
+      /**
+       * NOTE: if you want points to be same size (regardless of their distance from camera),
+       * then turn off `sizeAttenuation`
+       */
+      // sizeAttenuation: false
+      // size: 3 // in pixels
+    });
     const points = new THREE.Points(sphereGeometry, material);
     // @ts-expect-error
     createObjectAndAddToScene(scene, meshObjects, 0, -2, points);
@@ -524,19 +533,6 @@ function addLineGeometry(
   createObjectAndAddToScene(scene, meshObjects, x, y, mesh);
 }
 
-function createObjectAndAddToScene(
-  scene: THREE.Scene,
-  meshObjects: THREE.Mesh[],
-  x: number,
-  y: number,
-  obj: THREE.Mesh,
-) {
-  obj.position.x = x * SPREAD;
-  obj.position.y = y * SPREAD;
-  scene.add(obj);
-  meshObjects.push(obj);
-}
-
 function createMaterial() {
   const material = new THREE.MeshPhongMaterial({ side: THREE.DoubleSide });
   const hue = Math.random();
@@ -544,8 +540,4 @@ function createMaterial() {
   const luminance = 0.5;
   material.color.setHSL(hue, saturation, luminance);
   return material;
-}
-
-function needsResize(canvas: HTMLCanvasElement, width: number, height: number) {
-  return canvas.width !== width || canvas.height !== height;
 }
