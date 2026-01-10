@@ -1,4 +1,27 @@
 #primitives-frame {
-  max-height: 20rem;
+  max-height: 100%;
   max-width: 40rem;
+
+  &,
+  & .picture-frame-content {
+    aspect-ratio: 2 / 1;
+  }
+
+  & .picture-frame-content,
+  & canvas {
+    margin: 0;
+  }
+
+  & .picture-frame-content {
+    padding: 1rem;
+    height: 100%;
+    width: 100%;
+
+    & canvas {
+      position: relative;
+      height: 100%;
+      margin: 0;
+      z-index: 10;
+    }
+  }
 }

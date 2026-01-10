@@ -380,9 +380,25 @@ function createFourthRowOfPrimitives(
         bevelSegments: 5,
       });
       const mesh = new THREE.Mesh(geometry, createMaterial());
+      /**
+       * @NOTE
+       * We want to spin the text around its center but by default 'three.js' creates the text such
+       * that its center of rotation is on the left edge. To work around this we can ask 'three.js'
+       * to compute the bounding box of the geometry. We can then call the `getCenter` method of
+       * the bounding box and pass it our mesh's position object. `getCenter` copies the center
+       * of the box into the position. It also returns the position object so we can call
+       * `multiplyScalar(-1)` to position the entire object such that its center of rotation is at
+       * the center of the object.
+       */
       geometry.computeBoundingBox();
       geometry.boundingBox!.getCenter(mesh.position).multiplyScalar(-1);
 
+      /**
+       * @NOTE
+       * If we then just called `addSolidGeometry` like with previous examples it would set the
+       * position again which is no good. So, in this case we create an `Object3D` which is the
+       * standard node for the 'three.js' scene graph. `Mesh` is inherited from `Object3D` as well.
+       */
       const parent = new THREE.Object3D();
       parent.add(mesh);
 
@@ -460,6 +476,21 @@ function createFifthRowOfPrimitives(
     const boxGeometry = BoxFactory();
     const boxEdgesGeometry = new THREE.EdgesGeometry(boxGeometry, thresholdAngle);
     addLineGeometry(scene, meshObjects, -1, -2, boxEdgesGeometry);
+  }
+
+  {
+    const radius = 7;
+    const widthSegments = 12;
+    const heightSegments = 8;
+    const sphereGeometry = new THREE.SphereGeometry(
+      radius,
+      widthSegments,
+      heightSegments,
+    );
+    const material = new THREE.PointsMaterial({ color: 0xff0000, size: 0.2 });
+    const points = new THREE.Points(sphereGeometry, material);
+    // @ts-expect-error
+    createObjectAndAddToScene(scene, meshObjects, 0, -2, points);
   }
 
   {

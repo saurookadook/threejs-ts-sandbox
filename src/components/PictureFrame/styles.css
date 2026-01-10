@@ -23,9 +23,11 @@
 .picture-frame-content {
   box-sizing: border-box;
   height: calc(100% - var(--picture-frame-side-size));
+  margin: 1rem;
   overflow: hidden;
   position: relative;
-  width: calc(100% - (var(--picture-frame-side-size) * 0.5));
+  width: calc(100% - var(--picture-frame-side-size));
+  /* width: calc(100% - (var(--picture-frame-side-size) * 0.5)); */
   z-index: 2;
 }
 
