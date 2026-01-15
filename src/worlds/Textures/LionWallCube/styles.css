@@ -1,0 +1,10 @@
+#lion-wall-cube-frame {
+  /* */
+}
+
+#lion-wall-cube {
+  height: 300px;
+  position: relative;
+  width: 600px;
+  z-index: 1;
+}
