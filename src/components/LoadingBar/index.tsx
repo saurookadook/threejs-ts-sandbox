@@ -1,3 +1,5 @@
+import './styles.css';
+
 export const LoadingBar = ({ ...props }) => {
   return (
     <div id="loading-bar" {...props}>

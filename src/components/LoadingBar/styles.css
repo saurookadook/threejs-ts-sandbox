@@ -1,0 +1,24 @@
+#loading-bar {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  & .progress {
+    border: 1px solid white;
+    margin: 1.5rem;
+    width: 50%;
+  }
+
+  & .progress-bar {
+    background: white;
+    height: 1rem;
+    margin: 0.125rem;
+    transform: scaleX(0);
+    transform-origin: top left;
+  }
+}
