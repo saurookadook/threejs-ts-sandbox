@@ -8,10 +8,6 @@ const dirname =
     : path.dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
-  stories: [
-    '../src/**/*.mdx', // force formatting
-    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-  ],
   addons: [
     '@chromatic-com/storybook',
     '@storybook/addon-vitest',
@@ -20,6 +16,11 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
   ],
   framework: '@storybook/react-vite',
+  staticDirs: [{ from: '../src/assets', to: '/assets' }],
+  stories: [
+    '../src/**/*.mdx', // force formatting
+    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+  ],
   viteFinal: async (config, { configType }) => {
     config.resolve!.alias = {
       ...config.resolve!.alias,
