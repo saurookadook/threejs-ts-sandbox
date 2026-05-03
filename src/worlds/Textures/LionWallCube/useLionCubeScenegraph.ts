@@ -1,7 +1,15 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 import { needsResize } from '@src/utils';
+import { DegRadHelper, StringToNumberHelper } from '@src/utils/gui';
+
+const wrapModes = {
+  ClampToEdgeWrapping: THREE.ClampToEdgeWrapping,
+  MirroredRepeatWrapping: THREE.MirroredRepeatWrapping,
+  RepeatWrapping: THREE.RepeatWrapping,
+};
 
 export function useLionCubeScenegraph(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
@@ -28,13 +36,26 @@ export function useLionCubeScenegraph(
     const cubes: THREE.Mesh[] = [];
     const loader = new THREE.TextureLoader();
 
-    const lionTexture = loader.load('/assets/lion-wall.jpg');
-    lionTexture.colorSpace = THREE.SRGBColorSpace;
+    const lionTexture = asyncLoadLionTexture(loader, cubeGeometry, scene, cubes);
 
-    const cubeMaterial = new THREE.MeshBasicMaterial({ map: lionTexture });
-    const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    scene.add(cubeMesh);
-    cubes.push(cubeMesh);
+    const gui = new GUI();
+    gui
+      .add(new StringToNumberHelper(lionTexture, 'wrapS'), 'value', wrapModes)
+      .name('texture.wrapS')
+      .onChange(() => updateTexture(lionTexture));
+    gui
+      .add(new StringToNumberHelper(lionTexture, 'wrapT'), 'value', wrapModes)
+      .name('texture.wrapT')
+      .onChange(() => updateTexture(lionTexture));
+    gui.add(lionTexture.repeat, 'x', 0, 5, 0.01).name('texture.repeat.x');
+    gui.add(lionTexture.repeat, 'y', 0, 5, 0.01).name('texture.repeat.x');
+    gui.add(lionTexture.offset, 'x', -2, 2, 0.01).name('texture.offset.x');
+    gui.add(lionTexture.offset, 'y', -2, 2, 0.01).name('texture.offset.x');
+    gui.add(lionTexture.center, 'x', -0.5, 1.5, 0.01).name('texture.center.x');
+    gui.add(lionTexture.center, 'y', -0.5, 1.5, 0.01).name('texture.center.x');
+    gui
+      .add(new DegRadHelper(lionTexture, 'rotation'), 'value', -360, 360)
+      .name('texture.rotation');
 
     function renderWithAnimation(time: number) {
       time *= 0.001; // convert time to seconds
@@ -77,4 +98,44 @@ export function useLionCubeScenegraph(
       renderer.dispose();
     };
   }, []);
+}
+
+function updateTexture(texture: THREE.Texture) {
+  texture.needsUpdate = true;
+}
+
+/** @note wait to load cube until texture is loaded */
+function loadTextureWhenReady(
+  loader: THREE.TextureLoader,
+  cubeGeometry: THREE.BoxGeometry,
+  scene: THREE.Scene,
+  cubes: THREE.Mesh[],
+) {
+  loader.load('/assets/lion-wall.jpg', (texture) => {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    const cubeMaterial = new THREE.MeshBasicMaterial({ map: texture });
+    const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    scene.add(cubeMesh);
+    cubes.push(cubeMesh);
+  });
+}
+
+/**
+ * @note using this method of loading textures will result in it being
+ * transparent until image is loaded asynchronously
+ */
+function asyncLoadLionTexture(
+  loader: THREE.TextureLoader,
+  cubeGeometry: THREE.BoxGeometry,
+  scene: THREE.Scene,
+  cubes: THREE.Mesh[],
+) {
+  const asyncLionTexture = loader.load('/assets/lion-wall.jpg');
+  asyncLionTexture.colorSpace = THREE.SRGBColorSpace;
+
+  const cubeMaterial = new THREE.MeshBasicMaterial({ map: asyncLionTexture });
+  const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+  scene.add(cubeMesh);
+  cubes.push(cubeMesh);
+  return asyncLionTexture;
 }

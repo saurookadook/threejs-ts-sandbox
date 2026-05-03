@@ -6,7 +6,7 @@ const meta = {
   title: 'worlds/SemiComplexTank',
   component: SemiComplexTank,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
   },
   argTypes: {
     toonify: {
