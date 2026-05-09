@@ -14,6 +14,10 @@ yarn
 yarn build-storybook && yarn storybook
 ```
 
+## Handy Resources
+
+- [lil-gui](https://github.com/georgealways/lil-gui)
+
 ---
 
 ## Template README
