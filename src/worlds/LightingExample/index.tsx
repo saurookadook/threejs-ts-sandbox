@@ -2,17 +2,17 @@ import { useRef } from 'react';
 
 import type { ValueOf } from '@src/types/main';
 import { BaseCanvas } from '@src/components';
-import { LightingType } from '@src/constants';
+import { LightType } from '@src/constants';
 import { useLightingScenegraph } from './useLightingScenegraph';
 
 import './styles.css';
 
-export function LightingExample({
-  lightType = LightingType.AmbientLight,
+export function Lights({
+  lightType = LightType.AmbientLight,
   toonify = false,
   ...props
 }: {
-  lightType?: ValueOf<typeof LightingType>;
+  lightType?: ValueOf<typeof LightType>;
   toonify?: boolean;
 } & React.HTMLAttributes<HTMLCanvasElement>) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -21,8 +21,8 @@ export function LightingExample({
   useLightingScenegraph(canvasRef, lightType);
 
   return (
-    <div id="lighting-example-container">
-      <BaseCanvas ref={canvasRef} id="lighting-example" {...props} />
+    <div id="lights-container">
+      <BaseCanvas ref={canvasRef} id="lights" {...props} />
       {/* <div ref={infoRef} id="info"></div> */}
     </div>
   );

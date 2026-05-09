@@ -1,59 +1,59 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { LightingType } from '@src/constants';
-import { LightingExample } from './index';
+import { LightType } from '@src/constants';
+import { Lights } from './index';
 
 const meta = {
-  title: 'worlds/LightingExample',
-  component: LightingExample,
+  title: 'worlds/Lights',
+  component: Lights,
   parameters: {
     layout: 'centered',
   },
   argTypes: {
     lightType: {
       control: 'select',
-      options: Object.values(LightingType),
+      options: Object.values(LightType),
     },
     toonify: { control: 'boolean' },
   },
   args: {},
-} satisfies Meta<typeof LightingExample>;
+} satisfies Meta<typeof Lights>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AmbientLighting: Story = {
   args: {
-    lightType: LightingType.AmbientLight,
+    lightType: LightType.AmbientLight,
   },
 };
 
 export const DirectionalLighting: Story = {
   args: {
-    lightType: LightingType.DirectionalLight,
+    lightType: LightType.DirectionalLight,
   },
 };
 
 export const HemisphereLighting: Story = {
   args: {
-    lightType: LightingType.HemisphereLight,
+    lightType: LightType.HemisphereLight,
   },
 };
 
 export const PointLighting: Story = {
   args: {
-    lightType: LightingType.PointLight,
+    lightType: LightType.PointLight,
   },
 };
 
 export const RectAreaLighting: Story = {
   args: {
-    lightType: LightingType.RectAreaLight,
+    lightType: LightType.RectAreaLight,
   },
 };
 
 export const SpotLighting: Story = {
   args: {
-    lightType: LightingType.SpotLight,
+    lightType: LightType.SpotLight,
   },
 };

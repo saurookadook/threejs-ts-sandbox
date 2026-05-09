@@ -1,6 +1,6 @@
 export const SPREAD = 15;
 
-export const LightingType = {
+export const LightType = {
   AmbientLight: 'AmbientLight',
   DirectionalLight: 'DirectionalLight',
   HemisphereLight: 'HemisphereLight',

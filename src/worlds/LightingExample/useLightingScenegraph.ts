@@ -7,20 +7,20 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 
 import type { ValueOf } from '@src/types/main';
-import { LightingType } from '@src/constants';
+import { LightType } from '@src/constants';
 import { ColorGUIHelper, DegRadHelper } from '@src/utils/gui';
 import { needsResize } from '@src/utils';
 
 export function useLightingScenegraph(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
-  lightType?: ValueOf<typeof LightingType>,
+  lightType?: ValueOf<typeof LightType>,
 ) {
   useEffect(() => {
     if (canvasRef.current == null) return;
 
     const canvasEl = canvasRef.current;
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: canvasEl });
-    if (lightType === LightingType.RectAreaLight) {
+    if (lightType === LightType.RectAreaLight) {
       RectAreaLightUniformsLib.init();
     }
 
@@ -49,22 +49,22 @@ export function useLightingScenegraph(
 
     const gui = new GUI();
     switch (lightType) {
-      case LightingType.AmbientLight:
+      case LightType.AmbientLight:
         createAmbientLightAndAddToGUI(scene, gui);
         break;
-      case LightingType.DirectionalLight:
+      case LightType.DirectionalLight:
         createDirectionalLightAndAddToGUI(scene, gui);
         break;
-      case LightingType.HemisphereLight:
+      case LightType.HemisphereLight:
         createHemisphereLightAndAddToGUI(scene, gui);
         break;
-      case LightingType.PointLight:
+      case LightType.PointLight:
         createPointLightAndAddToGUI(scene, gui);
         break;
-      case LightingType.RectAreaLight:
+      case LightType.RectAreaLight:
         createRectAreaLightAndAddToGUI(scene, gui);
         break;
-      case LightingType.SpotLight:
+      case LightType.SpotLight:
         createSpotLightAndAddToGUI(scene, gui);
         break;
       default:
@@ -103,7 +103,7 @@ export function useLightingScenegraph(
 
 function createCheckeredGroundPlaneMesh(
   planeSize: number,
-  lightType?: ValueOf<typeof LightingType>,
+  lightType?: ValueOf<typeof LightType>,
 ): THREE.Mesh {
   const textureLoader = new THREE.TextureLoader();
   const checkeredTexture = textureLoader.load('/assets/checker.png');
@@ -116,7 +116,7 @@ function createCheckeredGroundPlaneMesh(
 
   const planeGeometry = new THREE.PlaneGeometry(planeSize, planeSize);
   const MeshMaterial =
-    lightType === LightingType.RectAreaLight
+    lightType === LightType.RectAreaLight
       ? THREE.MeshStandardMaterial
       : THREE.MeshPhongMaterial;
   const planeMaterial = new MeshMaterial({
@@ -128,11 +128,11 @@ function createCheckeredGroundPlaneMesh(
   return planeMesh;
 }
 
-function createCubeMesh(lightType?: ValueOf<typeof LightingType>): THREE.Mesh {
+function createCubeMesh(lightType?: ValueOf<typeof LightType>): THREE.Mesh {
   const cubeSize = 4;
   const cubeGeometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
   const MeshMaterial =
-    lightType === LightingType.RectAreaLight
+    lightType === LightType.RectAreaLight
       ? THREE.MeshStandardMaterial
       : THREE.MeshPhongMaterial;
   const cubeMaterial = new MeshMaterial({ color: '#8AC' });
@@ -141,7 +141,7 @@ function createCubeMesh(lightType?: ValueOf<typeof LightingType>): THREE.Mesh {
   return cubeMesh;
 }
 
-function createSphereMesh(lightType?: ValueOf<typeof LightingType>): THREE.Mesh {
+function createSphereMesh(lightType?: ValueOf<typeof LightType>): THREE.Mesh {
   const sphereRadius = 3;
   const sphereWidthDivisions = 32;
   const sphereHeightDivisions = 16;
@@ -151,7 +151,7 @@ function createSphereMesh(lightType?: ValueOf<typeof LightingType>): THREE.Mesh 
     sphereHeightDivisions,
   );
   const MeshMaterial =
-    lightType === LightingType.RectAreaLight
+    lightType === LightType.RectAreaLight
       ? THREE.MeshStandardMaterial
       : THREE.MeshPhongMaterial;
   const sphereMaterial = new MeshMaterial({ color: '#CA8' });
