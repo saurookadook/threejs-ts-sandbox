@@ -11,7 +11,7 @@ import { LightType } from '@src/constants';
 import { ColorGUIHelper, DegRadHelper } from '@src/utils/gui';
 import { needsResize } from '@src/utils';
 
-export function useLightingScenegraph(
+export function useLightsScenegraph(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
   lightType?: ValueOf<typeof LightType>,
 ) {
