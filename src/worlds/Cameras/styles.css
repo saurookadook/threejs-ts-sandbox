@@ -1,0 +1,26 @@
+#cameras-container {
+  position: relative;
+
+  & .split {
+    /* background: rgba(0 0 0 / 0.8); */
+    /* color: #FFFFFF; */
+    display: flex;
+    /* font-family: monospace; */
+    left: 0;
+    /* padding: 0.5rem; */
+    position: absolute;
+    top: 0;
+
+    &,
+    & > div {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+#cameras {
+  margin: 0;
+}
+
+
