@@ -3,5 +3,10 @@
     "[javascript]": {
         "editor.tabSize": 2
     },
-    "prettier.configPath": "./.prettierrc.js"
+    "prettier.configPath": "./.prettierrc.js",
+    "github.copilot.enable": {
+        // "plaintext": false,
+        // "markdown": false,
+        "*": false,
+    }
 }
